@@ -3,7 +3,7 @@
 ; PHP-FPM SETTINGS: /usr/local/etc/php-fpm.d/zz-www.conf
 
 [PHP]
-realpath_cache_size = {{ getenv "PHP_REALPATH_CACHE_SIZE" "16k" }}
+realpath_cache_size = {{ getenv "PHP_REALPATH_CACHE_SIZE" "4096k" }}
 realpath_cache_ttl = {{ getenv "PHP_REALPATH_CACHE_TTL" "120" }}
 memory_limit = {{ getenv "PHP_CLI_MEMORY_LIMIT" "-1" }}
 error_reporting = {{ getenv "PHP_ERROR_REPORTING" "E_ALL" }}
@@ -20,9 +20,6 @@ pdo_mysql.cache_size = {{ getenv "PHP_PDO_MYSQL_CACHE_SIZE" "2000" }}
 [mail function]
 sendmail_path = {{ getenv "PHP_SENDMAIL_PATH" "/bin/true" }}
 
-[MySQL]
-mysql.cache_size = {{ getenv "PHP_MYSQL_CACHE_SIZE" "2000" }}
-
 [MySQLi]
 mysqli.cache_size = {{ getenv "PHP_MYSQLI_CACHE_SIZE" "2000" }}
 
@@ -36,7 +33,4 @@ mysqlnd.net_read_timeout = {{ getenv "PHP_MYSQLND_NET_READ_TIMEOUT" "31536000" }
 
 [Assertion]
 zend.assertions = {{ getenv "PHP_ZEND_ASSERTIONS" "1" }}
-
-[mbstring]
-mbstring.http_input = {{ getenv "PHP_MBSTRING_HTTP_INPUT" "" }}
-mbstring.http_output = {{ getenv "PHP_MBSTRING_HTTP_OUTPUT" "" }}
+assert.active = {{ getenv "PHP_ASSERT_ACTIVE" "On" }}

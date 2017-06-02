@@ -18,6 +18,7 @@ RUN set -xe && \
         bzip2 \
         ca-certificates \
         c-client \
+        freetype \
         git \
         gzip \
         icu-libs \
@@ -25,6 +26,7 @@ RUN set -xe && \
         imap \
         libbz2 \
         libjpeg-turbo \
+        libltdl \
         libmcrypt \
         libpng \
         libxslt \
@@ -96,6 +98,7 @@ RUN set -xe && \
       docker-php-ext-install -j${NPROC} gd && \
 
     # RabbitMQ C client
+    # @todo install from alpine repo after switch to 3.6
     wget -qO- https://github.com/alanxz/rabbitmq-c/releases/download/v${RABBITMQ_C_VER}/rabbitmq-c-${RABBITMQ_C_VER}.tar.gz \
         | tar xz -C /tmp/ && \
     cd /tmp/rabbitmq-c-${RABBITMQ_C_VER} && \
@@ -109,23 +112,22 @@ RUN set -xe && \
     # PECL extensions
     pecl config-set php_ini "$PHP_INI_DIR/php.ini" && \
 
-    # TODO unfreeze xdebug version with the new version (breaks with 2.5.2).
     pecl install \
         amqp \
         apcu \
-        oauth \
         imagick \
         mongodb \
+        oauth \
         redis \
-        xdebug-2.5.1 \
+        xdebug \
         yaml-2.0.0 && \
 
     docker-php-ext-enable \
         amqp \
         apcu \
-        oauth \
         imagick \
         mongodb \
+        oauth \
         redis \
         xdebug \
         yaml && \
@@ -167,9 +169,6 @@ RUN set -xe && \
     # Create working dir
     mkdir -p $APP_ROOT && \
     chown -R www-data:www-data /var/www && \
-
-    # Disable Xdebug by default
-    rm -f $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini && \
 
     # Update SSHd config
     echo -e "Host *\n\tStrictHostKeyChecking no\n" >> /etc/ssh/ssh_config && \

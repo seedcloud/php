@@ -183,13 +183,15 @@ RUN set -xe && \
         bzip2 \
         ca-certificates \
         c-client \
+        freetype \
         git \
         gzip \
         icu-libs \
-        imagemagick \
         imap \
+        imagemagick \
         libbz2 \
         libjpeg-turbo \
+        libltdl \
         libmcrypt \
         libpng \
         libxslt \
@@ -280,22 +282,22 @@ RUN set -xe && \
     pecl install \
         amqp-1.8.0 \
         apcu-4.0.11 \
-        oauth-1.2.3 \
         imagick-3.3.0 \
         memcached-2.2.0 \
         mongo \
-        ZendOpcache-7.0.5 \
+        oauth-1.2.3 \
         uploadprogress-1.0.3.1 \
         xdebug-2.2.7 \
-        yaml-1.3.0 && \
+        yaml-1.3.0 \
+        ZendOpcache-7.0.5 && \
 
     docker-php-ext-enable \
         amqp \
         apcu \
-        oauth \
         imagick \
         memcached \
         mongo \
+        oauth \
         opcache \
         uploadprogress \
         xdebug \
@@ -320,9 +322,6 @@ RUN set -xe && \
     # Create working dir
     mkdir -p $APP_ROOT && \
     chown -R www-data:www-data /var/www && \
-
-    # Disable Xdebug by default
-    rm -f $PHP_INI_DIR/conf.d/docker-php-ext-xdebug.ini && \
 
     # Update SSHd config
     echo -e "Host *\n\tStrictHostKeyChecking no\n" >> /etc/ssh/ssh_config && \

@@ -3,7 +3,7 @@
 set -e
 
 if [[ -n "${DEBUG}" ]]; then
-  set -x
+    set -x
 fi
 
 SSH_DIR=/home/www-data/.ssh
@@ -43,6 +43,9 @@ initSSH() {
         execTpl "authorized_keys.tpl" "${SSH_DIR}/authorized_keys"
     fi
 
+    # Remove multi-line env vars.
+    unset SSH_PRIVATE_KEY
+
     su-exec www-data printenv | xargs -I{} echo {} | awk ' \
         BEGIN { FS = "=" }; { \
             if ($1 != "HOME" \
@@ -58,21 +61,22 @@ initSSH() {
 }
 
 processConfigs() {
-    execTpl "php.ini.tpl" "${PHP_INI_DIR}/conf.d/php.ini"
-    execTpl "opcache.ini.tpl" "${PHP_INI_DIR}/conf.d/docker-php-ext-opcache.ini"
-    execTpl "xdebug.ini.tpl" "${PHP_INI_DIR}/conf.d/docker-php-ext-xdebug.ini"
+    execTpl "docker-php.ini.tpl" "${PHP_INI_DIR}/conf.d/docker-php.ini"
+    execTpl "docker-php-ext-opcache.ini.tpl" "${PHP_INI_DIR}/conf.d/docker-php-ext-opcache.ini"
+    execTpl "docker-php-ext-xdebug.ini.tpl" "${PHP_INI_DIR}/conf.d/docker-php-ext-xdebug.ini"
     execTpl "zz-www.conf.tpl" "/usr/local/etc/php-fpm.d/zz-www.conf"
 }
 
 initGitConfig() {
-    git config --global user.email "www-data@example.com"
-    git config --global user.name "www-data"
+    su-exec www-data git config --global user.email "www-data@example.com"
+    su-exec www-data git config --global user.name "www-data"
 }
 
 addPrivateKey
 fixPermissions
 execInitScripts
 initGitConfig
+processConfigs
 
 if [[ $1 == "make" ]]; then
     su-exec www-data "${@}" -f /usr/local/bin/actions.mk
@@ -83,8 +87,6 @@ else
     elif [[ $1 == "crond" ]]; then
         execTpl "crontab.tpl" "/etc/crontabs/www-data"
     fi
-
-    processConfigs
 
     exec /usr/local/bin/docker-php-entrypoint "${@}"
 fi
