@@ -1,4 +1,4 @@
-FROM php:7.1.5-fpm-alpine
+FROM wodby/base-php:7.1.5
 
 ENV GOTLP_VER 0.1.5
 ENV RABBITMQ_C_VER 0.8.0

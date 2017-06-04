@@ -2,7 +2,7 @@
 
 set -ex
 
-array=("5.3", "5.6", "7.0", "7.1")
+versions=("5.3", "5.6", "7.0", "7.1")
 
 export BASE_IMAGE=$(wget -qO- https://raw.githubusercontent.com/docker-library/php/master/7.1/alpine/Dockerfile)
 
