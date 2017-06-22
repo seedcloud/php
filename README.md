@@ -1,9 +1,3 @@
-# PHP Docker Container Images
-
-[![Build Status](https://travis-ci.org/wodby/php.svg?branch=master)](https://travis-ci.org/wodby/php)
-[![Docker Pulls](https://img.shields.io/docker/pulls/wodby/php.svg)](https://hub.docker.com/r/wodby/php)
-[![Docker Stars](https://img.shields.io/docker/stars/wodby/php.svg)](https://hub.docker.com/r/wodby/php)
-[![Wodby Slack](http://slack.wodby.com/badge.svg)](http://slack.wodby.com)
 
 ## Table of Contents
 
@@ -16,18 +10,14 @@
 * [Orchestration Actions](#orchestration-actions)
 * [Usage](#usage)
 
-## Docker Images
-
-Images are built via [Travis CI](https://travis-ci.org/wodby/php) and published on [Docker Hub](https://hub.docker.com/r/wodby/php). 
-
 ## Versions
 
 | PHP version (link to Dockerfile) | Alpine Linux version |
 | -------------------------------- | -------------------- |
-| [7.1.6](https://github.com/wodby/php/tree/master/7.1/Dockerfile)  | 3.6 |  
-| [7.0.20](https://github.com/wodby/php/tree/master/7.0/Dockerfile) | 3.6 |  
-| [5.6.30](https://github.com/wodby/php/tree/master/5.6/Dockerfile) | 3.6 |  
-| [5.3.29](https://github.com/wodby/php/tree/master/5.3/Dockerfile) | 3.4 |  
+| [7.1.6](https://github.com/seedcloud/php/tree/master/7.1/Dockerfile)  | 3.6 |
+| [7.0.20](https://github.com/seedcloud/php/tree/master/7.0/Dockerfile) | 3.6 |
+| [5.6.30](https://github.com/seedcloud/php/tree/master/5.6/Dockerfile) | 3.6 |
+| [5.3.29](https://github.com/seedcloud/php/tree/master/5.3/Dockerfile) | 3.4 |
 
 ## Environment Variables
 
@@ -83,7 +73,7 @@ The default configuration is not recommended to be used for production environme
 | PHP_SESSION_AUTO_START                | 0         | |
 | PHP_SESSION_BUG_COMPAT_42             | On        | FPM 5.3 |
 | PHP_SESSION_BUG_COMPAT_WARN           | On        | FPM 5.3 |
-| PHP_TRACK_ERRORS                      | On        | | 
+| PHP_TRACK_ERRORS                      | On        | |
 | PHP_UPLOAD_MAX_FILESIZE               | 512M      | FPM |
 | PHP_XDEBUG                            |           | |
 | PHP_XDEBUG_DEFAULT_ENABLE             | 0         | |
@@ -209,21 +199,15 @@ Legend:
 Usage:
 ```
 make COMMAND [params ...]
- 
+
 commands:
     git-clone url [branch]
-    git-checkout target [is_hash]   
+    git-checkout target [is_hash]
     update-keys
     walter
-    
+
 default params values:
     is_hash 0
-    branch "" Branch, tag or hash commit 
+    branch "" Branch, tag or hash commit
 ```
 
-## Usage
-
-Used in the following projects:
-
-- [Drupal stack](https://github.com/wodby/docker4drupal)
-- [WordPress stack](https://github.com/wodby/docker4wordpress)

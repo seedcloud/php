@@ -6,6 +6,6 @@ if [[ -n "${DEBUG}" ]]; then
     set -x
 fi
 
-if [[ -f "${APP_ROOT}/wodby.yml" ]]; then
-    walter -c "${APP_ROOT}/wodby.yml"
+if [[ -f "${APP_ROOT}/seedcloud.yml" ]]; then
+    walter -c "${APP_ROOT}/seedcloud.yml"
 fi

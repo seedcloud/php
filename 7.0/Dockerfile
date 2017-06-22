@@ -1,4 +1,4 @@
-FROM wodby/base-php:7.0.20
+FROM seedcloud/base-php:7.0.20
 
 ENV GOTPL_VER 0.1.5
 ENV PHP_PRESTISSIMO_VER 0.3

@@ -2,7 +2,7 @@
 
 VERSION ?= 7.0
 
-REPO = wodby/php
+REPO = seedcloud/php
 NAME = php-7.0
 
 .PHONY: build test push shell run start stop logs clean release
